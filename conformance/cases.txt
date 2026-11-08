@@ -1,0 +1,35 @@
+# drawing width height originX originY unitsPerPixel expected
+# Written by conformance/generate (Generate.java) from vexelray-fields' SdgRender, the reference.
+drawings/badge.sdgb 64 64 0.0 0.0 1.5625 expected/badge-fit64.png
+drawings/badge.sdgb 200 150 -16.666666666666657 0.0 0.6666666666666666 expected/badge-fit200x150.png
+drawings/badge.sdgb 128 128 10.0 10.0 0.1953125 expected/badge-zoom.png
+drawings/rasterware.sdgb 64 64 0.0 0.0 1.0 expected/rasterware-fit64.png
+drawings/rasterware.sdgb 200 150 -10.666666666666671 0.0 0.4266666666666667 expected/rasterware-fit200x150.png
+drawings/rasterware.sdgb 128 128 6.4 6.4 0.125 expected/rasterware-zoom.png
+drawings/vexelray-logo.sdgb 64 64 0.0 0.0 1.5625 expected/vexelray-logo-fit64.png
+drawings/vexelray-logo.sdgb 200 150 -16.666666666666657 0.0 0.6666666666666666 expected/vexelray-logo-fit200x150.png
+drawings/vexelray-logo.sdgb 128 128 10.0 10.0 0.1953125 expected/vexelray-logo-zoom.png
+drawings/mainframe.sdgb 64 64 0.0 0.0 1.0 expected/mainframe-fit64.png
+drawings/mainframe.sdgb 200 150 -10.666666666666671 0.0 0.4266666666666667 expected/mainframe-fit200x150.png
+drawings/mainframe.sdgb 128 128 6.4 6.4 0.125 expected/mainframe-zoom.png
+drawings/background-icon.sdgb 64 64 0.0 0.0 1.0 expected/background-icon-fit64.png
+drawings/background-icon.sdgb 200 150 -10.666666666666671 0.0 0.4266666666666667 expected/background-icon-fit200x150.png
+drawings/background-icon.sdgb 128 128 6.4 6.4 0.125 expected/background-icon-zoom.png
+drawings/file-icon.sdgb 64 64 0.0 0.0 0.25 expected/file-icon-fit64.png
+drawings/file-icon.sdgb 200 150 -2.666666666666668 0.0 0.10666666666666667 expected/file-icon-fit200x150.png
+drawings/file-icon.sdgb 128 128 1.6 1.6 0.03125 expected/file-icon-zoom.png
+drawings/group-opacity.sdgb 64 64 0.0 0.0 1.5625 expected/group-opacity-fit64.png
+drawings/group-opacity.sdgb 200 150 -16.666666666666657 0.0 0.6666666666666666 expected/group-opacity-fit200x150.png
+drawings/group-opacity.sdgb 128 128 10.0 10.0 0.1953125 expected/group-opacity-zoom.png
+drawings/group-clip.sdgb 64 64 0.0 0.0 1.5625 expected/group-clip-fit64.png
+drawings/group-clip.sdgb 200 150 -16.666666666666657 0.0 0.6666666666666666 expected/group-clip-fit200x150.png
+drawings/group-clip.sdgb 128 128 10.0 10.0 0.1953125 expected/group-clip-zoom.png
+drawings/group-mask.sdgb 64 64 0.0 0.0 1.5625 expected/group-mask-fit64.png
+drawings/group-mask.sdgb 200 150 -16.666666666666657 0.0 0.6666666666666666 expected/group-mask-fit200x150.png
+drawings/group-mask.sdgb 128 128 10.0 10.0 0.1953125 expected/group-mask-zoom.png
+drawings/group-nested.sdgb 64 64 0.0 0.0 1.5625 expected/group-nested-fit64.png
+drawings/group-nested.sdgb 200 150 -16.666666666666657 0.0 0.6666666666666666 expected/group-nested-fit200x150.png
+drawings/group-nested.sdgb 128 128 10.0 10.0 0.1953125 expected/group-nested-zoom.png
+drawings/traced-badge.sdgb 64 64 0.0 0.0 1.5 expected/traced-badge-fit64.png
+drawings/traced-badge.sdgb 200 150 -16.0 0.0 0.64 expected/traced-badge-fit200x150.png
+drawings/traced-badge.sdgb 128 128 9.600000000000001 9.600000000000001 0.1875 expected/traced-badge-zoom.png

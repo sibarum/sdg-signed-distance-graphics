@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>dev.vexelray.sdg</groupId>
+    <artifactId>sdg-conformance-generate</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+    <name>SDG conformance: the generator</name>
+    <description>
+        Makes the conformance set from art: each SVG as a compiled SDG, and the pictures the reference, vexelray-fields'
+        SdgRender, draws of each at the views in cases.txt. Every rasterizer in this repository is tested against them.
+
+            mvn -f conformance/generate compile exec:java
+    </description>
+
+    <properties>
+        <maven.compiler.release>25</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <vexelray-fields.version>0.2.0-SNAPSHOT</vexelray-fields.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>dev.vexelray.fields</groupId>
+            <artifactId>vexelray-fields-sdg</artifactId>
+            <version>${vexelray-fields.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.5.0</version>
+                <configuration>
+                    <mainClass>Generate</mainClass>
+                    <arguments>
+                        <argument>${project.basedir}/..</argument>
+                    </arguments>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

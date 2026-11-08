@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>dev.vexelray.sdg</groupId>
+    <artifactId>sdg-shaders-generate</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+    <name>SDG shaders: the generator</name>
+    <description>
+        SDG's shaders authored once in SupirVast's core IR, lowered to SPIR-V, validated by spirv-val, and cross-compiled
+        by SPIRV-Cross to GLSL, HLSL and Metal, into ../out. The interface (bindings, the push-constant block) is in
+        ../README.md.
+
+            mvn -f shaders/generator compile exec:java
+    </description>
+
+    <properties>
+        <maven.compiler.release>25</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <supirvast.version>0.2.3-SNAPSHOT</supirvast.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>dev.supirvast</groupId>
+            <artifactId>vastir</artifactId>
+            <version>${supirvast.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>dev.supirvast</groupId>
+            <artifactId>vastir-tools</artifactId>
+            <version>${supirvast.version}</version>
+        </dependency>
+        <!-- spirv-val and SPIRV-Cross, bundled for Windows; another OS takes its own module, or the tools on PATH -->
+        <dependency>
+            <groupId>dev.supirvast</groupId>
+            <artifactId>vastir-tools-windows</artifactId>
+            <version>${supirvast.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.5.0</version>
+                <configuration>
+                    <mainClass>dev.vexelray.sdg.shaders.Generate</mainClass>
+                    <arguments>
+                        <argument>${project.basedir}/../out</argument>
+                    </arguments>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

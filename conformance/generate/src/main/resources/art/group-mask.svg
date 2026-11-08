@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs><mask id="half"><rect x="0" y="0" width="50" height="100" fill="#ffffff"/>
+    <rect x="50" y="0" width="50" height="100" fill="#404040"/></mask></defs>
+  <rect x="10" y="10" width="80" height="80" fill="#ff9020" mask="url(#half)"/>
+</svg>

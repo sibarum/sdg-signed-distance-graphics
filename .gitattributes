@@ -1,2 +1,7 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Drawings, pictures and shader binaries are bytes
+*.sdgb binary
+*.png binary
+*.spv binary

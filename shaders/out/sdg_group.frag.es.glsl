@@ -1,0 +1,27 @@
+#version 300
+#ifdef GL_ARB_shading_language_420pack
+#extension GL_ARB_shading_language_420pack : require
+#endif
+#extension GL_ARB_separate_shader_objects : require
+
+struct _14
+{
+    vec4 _m0;
+    vec4 _m1;
+    vec4 _m2;
+};
+
+uniform _14 _5;
+
+layout(binding = 0) uniform sampler2D _4;
+
+layout(location = 0) in vec2 _2;
+out vec4 _3;
+
+void main()
+{
+    vec4 _29 = textureLod(_4, _2, 0.0);
+    vec4 _30 = textureLod(_4, vec2(_2.x + _5._m2.x, _2.y), 0.0);
+    _3 = vec4(_29.x * (_5._m2.z * mix(1.0, mix(((0.2125999927520751953125 * _30.x) + (0.715200006961822509765625 * _30.y)) + (0.072200000286102294921875 * _30.z), _30.w, step(1.5, _5._m2.y)), step(0.5, _5._m2.y))), _29.y * (_5._m2.z * mix(1.0, mix(((0.2125999927520751953125 * _30.x) + (0.715200006961822509765625 * _30.y)) + (0.072200000286102294921875 * _30.z), _30.w, step(1.5, _5._m2.y)), step(0.5, _5._m2.y))), _29.z * (_5._m2.z * mix(1.0, mix(((0.2125999927520751953125 * _30.x) + (0.715200006961822509765625 * _30.y)) + (0.072200000286102294921875 * _30.z), _30.w, step(1.5, _5._m2.y)), step(0.5, _5._m2.y))), _29.w * (_5._m2.z * mix(1.0, mix(((0.2125999927520751953125 * _30.x) + (0.715200006961822509765625 * _30.y)) + (0.072200000286102294921875 * _30.z), _30.w, step(1.5, _5._m2.y)), step(0.5, _5._m2.y))));
+}
+
