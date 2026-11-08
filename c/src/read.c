@@ -469,3 +469,29 @@ void sdg_free(sdg_drawing *d) {
     free_layers(&d->layers);
     memset(d, 0, sizeof *d);
 }
+
+sdg_drawing *sdg_open(const uint8_t *bytes_in, size_t length, char *err, size_t err_size) {
+    sdg_drawing *d = malloc(sizeof *d);
+    if (!d) {
+        if (err && err_size) {
+            snprintf(err, err_size, "out of memory");
+        }
+        return NULL;
+    }
+    if (sdg_read(bytes_in, length, d, err, err_size)) {
+        free(d);
+        return NULL;
+    }
+    return d;
+}
+
+void sdg_close(sdg_drawing *d) {
+    if (d) {
+        sdg_free(d);
+        free(d);
+    }
+}
+
+void sdg_release(void *buffer) {
+    free(buffer);
+}

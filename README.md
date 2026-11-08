@@ -47,3 +47,8 @@ mvn -f shaders/generator compile exec:java    # the shaders, into shaders/out (n
 
 A folder of its own, a rasterizer that reads `.sdgb` (or the XML `.sdg`) and a test that runs `conformance/cases.txt`.
 The spec's §2 is the algorithm; `c/src/render.c` is a short, literal reading of it.
+
+## License
+
+Source code is licensed under the Apache License, Version 2.0 ([`LICENSE`](LICENSE)); documentation and other text
+content under Creative Commons Attribution 4.0 International ([`LICENSE-docs`](LICENSE-docs)). See [`NOTICE`](NOTICE).

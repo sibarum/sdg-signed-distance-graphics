@@ -14,6 +14,17 @@
 #include <stddef.h>
 #include <stdint.h>
 
+/* What a shared build exports (SDG_SHARED_BUILD while building it, SDG_SHARED when using it), and nothing for a static one. */
+#if defined(_WIN32) && defined(SDG_SHARED_BUILD)
+#define SDG_API __declspec(dllexport)
+#elif defined(_WIN32) && defined(SDG_SHARED)
+#define SDG_API __declspec(dllimport)
+#elif defined(SDG_SHARED_BUILD)
+#define SDG_API __attribute__((visibility("default")))
+#else
+#define SDG_API
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -87,10 +98,10 @@ typedef struct {
  * its page and every number to be one (spec §4.4) before it is returned, so drawing it never reads out of bounds.
  * Returns 0, and fills *out; or -1, with a reason in err (if not NULL), and *out empty.
  */
-int sdg_read(const uint8_t *bytes, size_t length, sdg_drawing *out, char *err, size_t err_size);
+SDG_API int sdg_read(const uint8_t *bytes, size_t length, sdg_drawing *out, char *err, size_t err_size);
 
 /* Everything sdg_read made. */
-void sdg_free(sdg_drawing *drawing);
+SDG_API void sdg_free(sdg_drawing *drawing);
 
 /*
  * A theme's colour for a role, for a solid paint that names one: return 1 and set *rgba (0xRRGGBBAA) to draw it in
@@ -103,17 +114,27 @@ typedef int (*sdg_role_fn)(void *context, const char *role, uint32_t *rgba);
  * is the canvas point (origin_x + (i + 0.5) * units_per_pixel, origin_y + (j + 0.5) * units_per_pixel). Exactly as
  * the spec's §2 says, one sample a pixel. Returns 0, or -1 if memory ran out.
  */
-int sdg_render(const sdg_drawing *drawing, int width, int height, double origin_x, double origin_y,
+SDG_API int sdg_render(const sdg_drawing *drawing, int width, int height, double origin_x, double origin_y,
                double units_per_pixel, sdg_role_fn roles, void *role_context, uint8_t *rgba);
 
 /* sdg_render with the canvas fitted into width * height pixels, its aspect kept and centred. */
-int sdg_render_fit(const sdg_drawing *drawing, int width, int height, uint8_t *rgba);
+SDG_API int sdg_render_fit(const sdg_drawing *drawing, int width, int height, uint8_t *rgba);
 
 /* A PNG of 8-bit channels, not interlaced, any colour type, as RGBA8: 0, and *rgba malloc'd; or -1. */
-int sdg_png_decode(const uint8_t *png, size_t length, int *width, int *height, uint8_t **rgba);
+SDG_API int sdg_png_decode(const uint8_t *png, size_t length, int *width, int *height, uint8_t **rgba);
 
 /* RGBA8 as a PNG (stored, not compressed): 0, and *png malloc'd with *length; or -1. */
-int sdg_png_encode(const uint8_t *rgba, int width, int height, uint8_t **png, size_t *length);
+SDG_API int sdg_png_encode(const uint8_t *rgba, int width, int height, uint8_t **png, size_t *length);
+
+/*
+ * The same as sdg_read and sdg_free, for a caller that cannot lay out sdg_drawing itself (a foreign-function binding):
+ * the drawing on the heap, or NULL with a reason in err. Close it with sdg_close.
+ */
+SDG_API sdg_drawing *sdg_open(const uint8_t *bytes, size_t length, char *err, size_t err_size);
+SDG_API void sdg_close(sdg_drawing *drawing);
+
+/* A buffer from this library (a PNG sdg_png_encode made, pixels sdg_png_decode made) freed by its own allocator. */
+SDG_API void sdg_release(void *buffer);
 
 #ifdef __cplusplus
 }
