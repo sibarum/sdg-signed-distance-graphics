@@ -117,6 +117,14 @@ typedef int (*sdg_role_fn)(void *context, const char *role, uint32_t *rgba);
 SDG_API int sdg_render(const sdg_drawing *drawing, int width, int height, double origin_x, double origin_y,
                double units_per_pixel, sdg_role_fn roles, void *role_context, uint8_t *rgba);
 
+/*
+ * sdg_render on more than one thread: the picture cut into bands of rows, each drawn by whichever thread is free; 0 is
+ * one thread a processor. The pixels are the same, byte for byte, however many threads draw them. roles is called
+ * before drawing begins, once a paint that names one, on the caller's thread.
+ */
+SDG_API int sdg_render_threaded(const sdg_drawing *drawing, int width, int height, double origin_x, double origin_y,
+               double units_per_pixel, sdg_role_fn roles, void *role_context, int threads, uint8_t *rgba);
+
 /* sdg_render with the canvas fitted into width * height pixels, its aspect kept and centred. */
 SDG_API int sdg_render_fit(const sdg_drawing *drawing, int width, int height, uint8_t *rgba);
 

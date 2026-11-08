@@ -6,6 +6,8 @@ project(sdg C)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 
+find_package(Threads REQUIRED)
+
 set(SDG_SOURCES src/read.c src/render.c src/png.c)
 
 function(sdg_options target)
@@ -14,7 +16,7 @@ function(sdg_options target)
         target_compile_options(${target} PRIVATE /W3 /O2)
         target_compile_definitions(${target} PRIVATE _CRT_SECURE_NO_WARNINGS)
     else()
-        target_link_libraries(${target} PUBLIC m)
+        target_link_libraries(${target} PUBLIC m Threads::Threads)
         target_compile_options(${target} PRIVATE -Wall -Wextra -O2)
     endif()
 endfunction()
@@ -30,8 +32,15 @@ set_target_properties(sdg PROPERTIES C_VISIBILITY_PRESET hidden)
 add_executable(sdgrender tools/sdgrender.c)
 target_link_libraries(sdgrender PRIVATE sdg_static)
 
+add_executable(sdgbench tools/sdgbench.c)
+target_link_libraries(sdgbench PRIVATE sdg_static)
+
 add_executable(conformance tests/conformance.c)
 target_link_libraries(conformance PRIVATE sdg_static)
 
+add_executable(fast tests/fast.c tests/reference.c)
+target_link_libraries(fast PRIVATE sdg_static)
+
 enable_testing()
 add_test(NAME conformance COMMAND conformance ${CMAKE_CURRENT_SOURCE_DIR}/../conformance)
+add_test(NAME fast COMMAND fast ${CMAKE_CURRENT_SOURCE_DIR}/../conformance)
